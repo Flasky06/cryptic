@@ -14,16 +14,6 @@ function Signup() {
 
   const router = useRouter();
 
-  const checkSession = async () => {
-    const session = await getServerSession(authOptions);
-    if (session) redirect("/");
-  };
-
-  // Call checkSession when the component mounts
-  useEffect(() => {
-    checkSession();
-  }, []);
-
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -46,7 +36,7 @@ function Signup() {
       setError(""); // Clear error state on successful registration
       const form = e.target as HTMLFormElement;
       form.reset();
-      router.push("/login");
+      router.push("/");
     } catch (error) {
       console.log("Error during registration:", error);
       setError("Error during registration. Please try again."); // Update error state on catch
@@ -84,7 +74,7 @@ function Signup() {
           )}
           <p className="p-1 text-sm">
             already have an account?
-            <Link href="/login" className="text-base font-bold">
+            <Link href="/" className="text-base font-bold">
               login
             </Link>
           </p>

@@ -2,19 +2,15 @@ import React from "react";
 import { FaUser } from "react-icons/fa";
 import { MdHome } from "react-icons/md";
 import { MdOutlineDone, MdMenu } from "react-icons/md";
-import { IoMail, IoDocument } from "react-icons/io5";
-
+import { IoMail } from "react-icons/io5";
 import { IoDocumentTextSharp } from "react-icons/io5";
 
 function Sidebar() {
   return (
-    <div className="flex flex-col px-2 py-4 gap-4  h-screen w-1/5 bg-gray-700 text-white sticky top-0 left-0	">
-      <div className="flex flex-col gap-2 justify-center bg-gray-900 p-2">
-        <div className="px-1">
-          <FaUser className="text-sm" />
-          <p>flasky</p>
-        </div>
-        <div>client</div>
+    <div className="flex flex-col px-2 py-4 gap-4  h-screen w-1/5 bg-gray-700 text-white fixed   left-0	">
+      <div className="px-1 flex gap-4 items-center">
+        <FaUser className="text-xl " />
+        <p className="font-light">Njuguna</p>
       </div>
       <div className="text-sm cursor-pointer p-1">Balance : $0.00</div>
       <div className="font-bold cursor-pointer p-1">Add Funds</div>
