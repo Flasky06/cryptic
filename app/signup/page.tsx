@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { FaArrowRight } from "react-icons/fa";
 
 function SignupPage() {
@@ -8,6 +9,8 @@ function SignupPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+
+  const router = useRouter();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -23,11 +26,13 @@ function SignupPage() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ name, email, password }),
       });
-
+      const data = await res.json();
+      setError(data.message);
       if (res.ok) {
         const form = e.target;
-        form.reset;
+        form.reset();
       }
+      router.push("/login");
     } catch (error) {
       console.log("Error during registration:", error);
     }
