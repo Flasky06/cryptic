@@ -1,24 +1,34 @@
 "use client";
 import React, { useState, ChangeEvent, FormEvent } from "react";
+import { signIn } from "next-auth/react";
 import Link from "next/link";
 import { FaArrowRight } from "react-icons/fa";
+import { useRouter } from "next/navigation";
 
 function Page(): JSX.Element {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [error, setError] = useState<string>("");
 
-  const handleEmailChange = (e: ChangeEvent<HTMLInputElement>): void => {
-    setEmail(e.target.value);
-  };
+  const router = useRouter();
 
-  const handlePasswordChange = (e: ChangeEvent<HTMLInputElement>): void => {
-    setPassword(e.target.value);
-  };
-
-  const handleSubmit = (e: FormEvent<HTMLFormElement>): void => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // Add your form submission logic here
+
+    try {
+      const res = await signIn("credentials", {
+        email,
+        password,
+        redirect: false,
+      });
+
+      if (res.error) {
+        setError("invalid credentials");
+        return;
+      }
+
+      router.replace("/");
+    } catch (error) {}
   };
 
   return (
@@ -32,19 +42,25 @@ function Page(): JSX.Element {
             placeholder="Email"
             className="border border-gray-400 rounded px-2 py-1"
             value={email}
-            onChange={handleEmailChange}
+            onChange={(e) => setEmail(e.target.value)}
           />
           <input
             type="password"
             placeholder="Password"
             className="border border-gray-400 rounded px-2 py-1"
             value={password}
-            onChange={handlePasswordChange}
+            onChange={(e) => setPassword(e.target.value)}
           />
           <p className="p-1 text-sm">
             Dont have an account
             <Link href="/signup">sign up</Link>
           </p>
+
+          {error && (
+            <div className="bg-red-500 text-white w-fit text-sm py-1 px-3 rounded-md mt-2 ">
+              {error}
+            </div>
+          )}
 
           <button type="submit" className="flex justify-center">
             <FaArrowRight />
