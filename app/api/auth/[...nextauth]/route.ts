@@ -7,7 +7,7 @@ import { signIn } from "next-auth/react";
 import { pages } from "next/dist/build/templates/app-page";
 import bcrypt from "bcryptjs";
 
-const authOptions = {
+export const authOptions = {
   providers: [
     CredentialsProvider({
       name: "credentials",
