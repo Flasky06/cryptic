@@ -9,15 +9,27 @@ function SignupPage() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
-  console.log(name);
-  console.log(email);
-  console.log(password);
-
-  const handleSubmit = (e: any) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (!name || !email || !password) {
       setError("all fields are required");
+      return;
+    }
+
+    try {
+      const res = await fetch("api/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, email, password }),
+      });
+
+      if (res.ok) {
+        const form = e.target;
+        form.reset;
+      }
+    } catch (error) {
+      console.log("Error during registration:", error);
     }
   };
   return (
