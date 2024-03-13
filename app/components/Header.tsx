@@ -6,7 +6,7 @@ import { IoMdMail } from "react-icons/io";
 import { MdAddCircle } from "react-icons/md";
 import { FaUser } from "react-icons/fa";
 
-function Header() {
+function Header(): JSX.Element {
   return (
     <div className="px-6 sticky top-0 py-5 bg-zinc-800	text-white">
       <div className="flex justify-between items-center ">
